@@ -1,0 +1,6 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "./pallets/voting/Cargo.toml"
+    ],
+    "rust-analyzer.showUnlinkedFileNotification": false
+}

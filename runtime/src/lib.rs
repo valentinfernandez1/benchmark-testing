@@ -228,6 +228,21 @@ impl pallet_timestamp::Config for Runtime {
 	type WeightInfo = ();
 }
 
+parameter_types! {
+	pub const MaxVoters: u32 = 100;
+	pub const VoteRemovalThreshold: u32 = 20;
+	pub const VoteLimit: u32 = 5;
+}
+
+impl pallet_voting::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+	type Currency = Balances;
+	type MaxVoters = MaxVoters;
+	type VoteLimit = VoteLimit;
+	type VoteRemovalThreshold = VoteRemovalThreshold;
+	type WeightInfo = ();
+}
+
 /// Existential deposit.
 pub const EXISTENTIAL_DEPOSIT: u128 = 500;
 
@@ -286,6 +301,7 @@ construct_runtime!(
 		Sudo: pallet_sudo,
 		// Include the custom logic from the pallet-template in the runtime.
 		TemplateModule: pallet_template,
+		Voting: pallet_voting,
 	}
 );
 
@@ -333,6 +349,7 @@ mod benches {
 		[pallet_balances, Balances]
 		[pallet_timestamp, Timestamp]
 		[pallet_sudo, Sudo]
+		[pallet_voting, Voting]
 		[pallet_template, TemplateModule]
 	);
 }
